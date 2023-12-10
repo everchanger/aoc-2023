@@ -48,10 +48,7 @@ const prepareDay = async (dayPath, day, year) => {
   }
 }
 
-const runTests = async (func, data)  => {
-  if (1) {
-    return true
-  }
+const runTests = async (func, data, part)  => {
   let pass = true
   for (const t of data) {
     const result = await func(t.input)
@@ -66,7 +63,7 @@ const runTests = async (func, data)  => {
 }
 
 const run = async (dayPath) => {
-  const { taskA, taskB } = await import(`file://${dayPath}/index.js`)
+  const { taskA, taskB } = await import(`${dayPath}/index.js`)
   const testInput = JSON.parse(fs.readFileSync(`${dayPath}/test.json`, 'utf8'))
 
   // Run tests before executing the tasks
