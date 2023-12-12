@@ -32,7 +32,28 @@ async function taskA (input) {
 }
 
 async function taskB (input) {
-  return ''
+  const games = input.split('\n')
+  return games.reduce((sum, game) => {
+    const sets = game.split(': ')[1].split('; ')
+    const highscore = {
+      'red': 0,
+      'green': 0,
+      'blue': 0,
+    };
+    for (const set of sets) {
+      const cubes = set.split(', ')
+
+      for (const cube of cubes) {
+        const parsed = cube.split(' ')
+        const value = +parsed[0]
+        const color = parsed[1]
+
+        if (value > highscore[color])
+          highscore[color] = value
+      }
+    }
+    return sum + Object.values(highscore).reduce((tot, curr) => tot *= curr, 1)
+  }, 0)
 }
 
 export { taskA, taskB }
